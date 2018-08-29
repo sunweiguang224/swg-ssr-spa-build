@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' 'unsafe-eval' *.davdian.com *.dvmama.com *.bravetime.net *.vyohui.cn *.qq.com *.growingio.com">
+    <script>(function(){var b=window.designWidth;delete window.designWidth;function a(e){e=e||b||375;var f=document.documentElement.clientWidth;if(f>640){f=640}else{if(f<320){f=320}}var c=(f/e)*100;document.documentElement.style.fontSize=c+"px";var d=window.getComputedStyle(document.documentElement).fontSize.replace("px","");if(d!==c){document.documentElement.style.fontSize=c*c/d+"px"}}a();window.addEventListener("resize",a,false)})();</script>
+    <title>{{{ title }}}</title>
+    {{{ renderStyles() }}}
+  </head>
+  <body>
+    <!--vue-ssr-outlet-->
+
+    <!--按需加载js-->
+    <script>
+      var s = '/script';
+      // babel-polyfill
+      if (!window.Object.assign || !window.Object.values) {
+        document.write('<script crossorigin="anonymous" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" src="{{{ config.replacer[`[[vendor]]`] }}}/babel-polyfill/6.26.0/polyfill.min.js"><' + s + '>');
+      }
+      // vconsole
+      if (document.cookie.indexOf('h5_debug_flag=1;') !== -1) {
+        document.write('<script crossorigin="anonymous" integrity="sha256-fKZuSDjJDMGPVNpUcSgczN3zf+07Bjw6xHRVy2o6oP8=" src="{{{ config.replacer[`[[vendor]]`] }}}/vconsole/3.0.0/vconsole.min.js"><' + s + '>');
+      }
+      s = undefined;
+    </script>
+
+    <!--第三方js-->
+    <script src="{{{ config.replacer['[[static]]'] }}}/common/js/vendor.dll.js"></script>
+
+    <!--状态同步-->
+    {{{ renderState() }}}
+
+    <!--业务js-->
+    {{{ renderScripts() }}}
+
+    <!--延迟加载的js资源-->
+    <script>
+      /*window.addEventListener('load', function () {
+        setTimeout(function () {
+          var script = document.createElement('script');
+          script.setAttribute('crossorigin', 'anonymous');
+          script.setAttribute('integrity', 'sha256-a3OG8vKFaNhWG0W/0Ww6ZiyiLCI/fzcyFnT5AtJ86/Q=');
+          script.src = '{{{ config.replacer[`[[vendor]]`] }}}/growingIO/growingIO.davdian.v5.js';
+          document.body.appendChild(script);
+        }, 1000);
+      }, false);*/
+    </script>
+  </body>
+</html>
